@@ -1,0 +1,831 @@
+@charset "utf-8";
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+@import url(./fontello.css);
+@import url(./normalize.css);
+/*기본 박스 사이징 재 설정 (width에 border-width와 padding을 포함하여 계산)*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/* 숨김콘텐츠 */
+.a11y-hidden,
+legend {
+  position: absolute;
+  /* 영역 바깥에 위치시키는 것. 
+  그러나 스크린리더 사용시 좋지 않음.
+  text-indent: -10000px;
+  left: -10000px; */
+  /* top: -9999em; */
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  clip: rect(0, 0, 0, 0);
+  /* clip은 position이 absolute일때만 사용가능 하지만 권장하지 않음.(구형 브라우저에서 동작) */
+  clip-path: polygon(0 0, 0 0, 0 0);
+  /* (0,0,0,0은 마스킹 처리 -보여줄 영역 지정-) clip보다 모던코드 */
+}
+/*css Module*/
+/*float 이슈를 해결하기 위한 CSS 선언*/
+.clearfix::after {
+  display: block;
+  content: "";
+  clear: both;
+}
+/*기본설정*/
+a {
+  text-decoration: none;
+  color: inherit;
+}
+html {
+  font-size: 10px;
+}
+body {
+  font-size: 1.4rem;
+  color: #181818;
+  background-color: #ccc;
+  font-family: "Spoqa Han Sans", "Sans-serif";
+  font-weight: 300;
+}
+.container {
+  background: url(./images/bg_flower.png) no-repeat 50% 0;
+  /* height: 100vh; */
+  /* display: flex;
+    /*flex direction 기본값은 row*/
+  /* flex-direction: column;
+    align-items: center; */
+}
+
+.header,
+.visual,
+.main,
+.slogan,
+.footer {
+  box-sizing: border-box;
+  width: 940px;
+  margin: 0 auto;
+}
+
+.header {
+  background-color: #fff;
+  border-radius: 0 0 15px 15px;
+  padding: 0 30px;
+  position: relative;
+}
+
+/*로고*/
+.logo {
+  margin: 0;
+  position: absolute;
+  top: 45px;
+  left: 62px;
+  /* z-index: 10; */
+}
+
+/*멤버링크*/
+.member {
+  margin: 0;
+  padding: 2px 0;
+  list-style-type: none;
+  text-align: right;
+  font-size: 0;
+  position: relative;
+  right: -10px;
+
+  /*right:-10은 왜 해주는지?
+  font-size 0으로 만들었다가 member.li에서 다시 값을 주는 이유는?*/
+}
+/*
+.member > *:last-child > a {
+  padding-right: 0;
+}*/
+
+.member li,
+.member a {
+  display: inline-block;
+}
+.member li {
+  font-size: 1.4rem;
+}
+.member li:nth-child(n + 2)::before {
+  content: ":";
+  margin: 0 2px;
+}
+.member a {
+  text-transform: uppercase;
+  padding: 8px 10px;
+}
+/*메인메뉴*/
+.navigation {
+  padding-bottom: 50px;
+  background: yellow;
+}
+
+.menu {
+  height: 47px;
+  list-style: none;
+  padding-left: 229px;
+  margin: 0;
+  border-top: 2px solid #000;
+  background: linear-gradient(
+    to bottom,
+    #e8852e 0%,
+    #ed552f 35%,
+    #ed552f 70%,
+    #e8852e 100%
+  );
+  background-color: #ed552f;
+  /*background와 background-color의 순서를 꼭 지켜야함. 
+  순서가 바뀌면 의도한 색깔이 나오지 않을 수 있음*/
+  /* box-shadow: 0 -10spx 0 0 #000; */
+}
+
+.menu-item {
+  outline: none;
+  /*outline: none을 지정하는 이유는 무엇?*/
+  position: relative;
+  float: left;
+  border-left: 2px solid rgba(255, 255, 255, 0.3);
+}
+.menu-button {
+  cursor: pointer;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 45px;
+  padding: 0 20px;
+  display: block;
+  text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000;
+}
+.menu-act .menu-button {
+  color: #ff0;
+}
+.menu-act .menu-button::after {
+  content: "";
+  display: block;
+  border-top: 2px solid #000;
+}
+.submenu {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  position: absolute;
+  display: none;
+  white-space: nowrap;
+  top: 47px;
+}
+.menu-act .submenu {
+  display: block;
+}
+
+.menu li:nth-child(-n + 3) .submenu {
+  left: 0;
+}
+.menu li:nth-child(n + 4) .submenu {
+  right: 0;
+}
+.submenu li,
+.submenu a {
+  display: inline-block;
+}
+.submenu a {
+  padding: 8px 10px;
+}
+
+/*비주얼*/
+@keyframes textAni {
+  0% {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0);
+    transform: translate(0, 0);
+  }
+  100% {
+    font-size: 24px;
+    color: rgba(0, 0, 0, 1);
+    transform: translate(400px, 75px);
+  }
+}
+.visual-text {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  display: inline-block;
+  animation-name: textAni;
+  animation-duration: 3000ms;
+  animation-fill-mode: forwards;
+  animation-delay: 1000ms;
+  color: rgba(0, 0, 0, 0);
+}
+@keyframes bgAni {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.visual {
+  height: 120px;
+  position: relative;
+}
+
+.visual::before,
+.visual::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  animation: bgAni 2s infinite alternate;
+}
+.visual::before {
+  background-image: url(./images/ani_flower_01.png),
+    url(./images/ani_flower_02.png);
+  background-position: 0 -10px, 670px 0;
+}
+.visual::after {
+  background-image: url(./images/ani_flower_03.png),
+    url(./images/ani_flower_04.png);
+  background-position: 300px 0, 800px 0;
+  animation-delay: 1s;
+}
+.main {
+  display: flex;
+  /* flex-direction: row; */
+  flex-flow: row wrap;
+  /*단축표기법*/
+  justify-content: space-around;
+  /* justify-content: space-evenly;는 IE에서 지원안되는 경우도 있으니
+    그럴 경우 around로 우회 */
+  min-height: 450px;
+  padding: 30px 15px;
+  background-color: #fff;
+  /* padding: 30px 15px; */
+  border-radius: 15px 15px 0 0;
+}
+.group1 {
+  width: 250px;
+}
+
+.group2 {
+  width: 380px;
+}
+
+.group3 {
+  width: 190px;
+}
+/*로그인*/
+.login {
+  background-color: #ed552f;
+  background-image: radial-gradient(circle at right top, #e8852e, #ed552f);
+  box-shadow: 5px 5px 0 0 #aaa;
+  border-radius: 5px;
+  padding: 10px;
+}
+.login-heading {
+  color: #ff0;
+  margin: 0;
+  font-size: 1.5rem;
+  text-indent: 10px;
+}
+
+.login-form {
+  background-color: #fff;
+  border-radius: 5px 5px 0 0;
+  margin-top: 10px;
+  padding: 10px 10px 0 10px;
+}
+.login-form fieldset {
+  position: relative;
+  border: 0 none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #aaa;
+  padding-bottom: 5px;
+}
+.user-email,
+.user-pw {
+  margin-bottom: 5px;
+}
+.login-form label {
+  width: 4em;
+  display: inline-block;
+}
+.login-form input {
+  width: 90px;
+  height: 22px;
+  border: 1px solid #aaa;
+  padding: 1px 1px 1px 5px;
+}
+.btn-login {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ed552f;
+  border-radius: 3px;
+  background-color: #e8852e;
+  color: #fff;
+  padding: 0;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+.sign {
+  background-color: #fff;
+  border-radius: 0 0 5px 5px;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 2px 10px;
+  font-size: 1.3rem;
+}
+
+.sign .icon-right-open::before {
+  color: #ed552f;
+  margin: 0;
+}
+.sign a {
+  display: inline-block;
+  padding: 8px 0;
+}
+/*유효성 검사 배너 */
+.validation-list {
+  margin: 25px 0 0 0;
+  padding-left: 0;
+  list-style-type: none;
+}
+.validation-list li a {
+  display: block;
+  border: 1px solid #aaa;
+  border-radius: 35px;
+  margin-top: 10px;
+  padding: 7px 10px 8px 45px;
+  background: url(./images/validation_icon.png) no-repeat 20px 50%,
+    #ccc linear-gradient(180deg, #bbb, #eee);
+}
+.validation-list a:hover {
+  color: red;
+}
+
+/* 웹 관련 용어 */
+.term {
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  margin-top: 20px;
+  background: #ccc linear-gradient(180deg, #bbb, #eee);
+  padding: 15px;
+}
+.term-heading {
+  margin: 0;
+  font-size: 1.6rem;
+}
+.term-list {
+  margin: 15px 0 0 0;
+}
+.term-list div {
+  margin-top: 15px;
+}
+.term-list dd {
+  margin-left: 0;
+}
+.term-list-subject,
+.term-list-brief {
+  float: right;
+  width: 145px;
+}
+.term-list-subject {
+  color: #296897;
+  font-weight: 400;
+}
+.term-list-thumbnail {
+  float: left;
+}
+.term-list-thumbnail img {
+  vertical-align: top;
+}
+.term-list-brief {
+  margin-top: 5px;
+  line-height: 1.6;
+}
+.change-layout .term-list-subject,
+.change-layout .term-list-brief {
+  float: left;
+}
+.change-layout .term-list-thumbnail {
+  float: right;
+}
+/*자료검색*/
+.search-form {
+  background: #ccc linear-gradient(180deg, #bbb, #eee);
+  border: 1px solid #aaa;
+  border-bottom-color: #fff;
+  border-radius: 15px 15px 0 0;
+  padding: 15px 25px 10px 25px;
+}
+.search-form fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.search-form input[type="search"] {
+  width: 200px;
+  margin: 0 4px;
+  padding: 1px 1px 1px 0.5em;
+}
+.search-form label,
+.search-form input[type="search"],
+.btn-search {
+  vertical-align: middle;
+}
+.search-form input[type="search"],
+.btn-search {
+  height: 24px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+}
+.btn-search {
+  color: #fff;
+  background-color: #333;
+  padding: 0 8px;
+  font-size: 1.2rem;
+}
+
+/*공지사항 및 자료실*/
+.board {
+  width: 380px;
+  position: relative;
+  padding-top: 45px;
+  margin-top: 20px;
+}
+.notice-list,
+.notice-more,
+.pds-list,
+.pds-more {
+  display: none;
+  /*display none을 하는 이유는?*/
+}
+.board-act .notice-list,
+.board-act .notice-more,
+.board-act .pds-list,
+.board-act .pds-more {
+  display: block !important;
+  /*display block를 하는 이유는?*/
+}
+.tab {
+  font-weight: 400;
+  margin: 0;
+  font-size: 1.4rem;
+  position: absolute;
+  top: 0;
+}
+.tab a {
+  display: block;
+  padding: 8px 10px;
+  border: 1px solid #aaa;
+  border-radius: 5px 5px 0 0;
+  color: #888;
+  background: #ccc linear-gradient(180deg, #bbb, #eee);
+}
+.board-act .tab a {
+  background: #fff;
+  color: #ed552f;
+  border-color: #ed552f #ed552f #fff #ed552f;
+}
+.notice-heading {
+  left: 0;
+}
+.pds-heading {
+  left: 73px;
+}
+/*notici-heading과 pds-heading은 왜 left값을 지정?*/
+.notice-list,
+.pds-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.notice-list li,
+.pds-list li {
+  margin-bottom: 8px;
+  /* overflow: hidden; */
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+.notice-list a,
+.pds-list a {
+  /* float: left;
+  width: 285px; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  flex-grow: 1;
+  /*  이 3가지가 세트이다.
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden; */
+}
+.notice-more,
+.pds-more {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: 8px;
+}
+.notice-more .icon-plus,
+.pds-more .icon-plus {
+  color: hsla(110, 50%, 30%, 1);
+}
+
+/*새소식*/
+.news {
+  margin-top: 20px;
+  position: relative;
+}
+.news::before {
+  content: "";
+  position: absolute;
+  background: #ccc linear-gradient(90deg, #bbb, #fff);
+  width: 80%;
+  height: 1px;
+  top: 35px;
+  left: 0;
+  /*before랑 after랑 뭐가 다른지?*/
+}
+.news-heading {
+  color: #ed552f;
+  font-size: 1.5rem;
+  margin: 0 0 35px 0;
+}
+.news-link {
+  display: block;
+}
+.news-item {
+  padding-left: 125px;
+  position: relative;
+  min-height: 100px;
+}
+.news-item-subject {
+  margin: 0 0 5px 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+.news-item-brief {
+  margin: 10px 0 0 0;
+  line-height: 1.6;
+}
+.news-item-thumbnail {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+}
+.news-item-thumbnail img {
+  box-shadow: 0 15px 20px 2px #aaa;
+  display: block;
+  margin-bottom: 15px;
+}
+.news-more {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: 8px;
+}
+.news-more .icon-plus {
+  color: hsla(110, 50%, 30%, 1);
+}
+
+/*신규 이벤트*/
+.gradient-box {
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  background: #ccc linear-gradient(180deg, #bbb, #eee);
+  padding: 10px;
+}
+.point-color {
+  color: #ed552f;
+}
+.event {
+  position: relative;
+  border-bottom: 1px solid #777;
+}
+.event-heading,
+.related-heading,
+.favorite-heading {
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+}
+.event-thumbnail,
+.event-brief {
+  margin: 10px 0;
+}
+.event-thumbnail img {
+  box-shadow: 5px 5px 0 0 #999;
+  border: 1px solid #777;
+}
+.btn-event {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.btn-event-prev,
+.btn-event-next {
+  width: 19px;
+  height: 18px;
+  border: 0;
+  padding: 0;
+  background-image: url(./images/back_forward.png);
+  cursor: pointer;
+}
+.btn-event-prev {
+  background-position: 0 0;
+}
+.btn-event-next {
+  background-position: 100% 0;
+  /*background-position: 수평값 수직값*/
+}
+.related {
+  padding-top: 10px;
+}
+.related-list {
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #888;
+  border-radius: 5px;
+  padding-left: 0;
+  margin: 0;
+  height: 27px;
+  overflow: hidden;
+  transition-property: height, padding;
+  transition-duration: 400ms;
+  transition-delay: 200ms, 0ms;
+  transition-timing-function: ease-in-out;
+}
+.related-list:hover,
+.related-list:focus {
+  height: 147px;
+  padding: 10px 0;
+}
+.related-list li {
+  height: 27px;
+  padding: 2px;
+}
+.related-list a {
+  display: block;
+  line-height: 20px;
+  /*flex 사용하여 배치도 가능 */
+  text-indent: 1em;
+}
+
+/*인기 사이트*/
+.favorite {
+  margin-top: 20px;
+  position: relative;
+}
+.favorite-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.favorite-list {
+  counter-reset: number;
+  /*일련 번호를 붙이려는 요소의 부모 요소에 counter-reset으로 
+  시작하는 번호를 정하고, 
+  일련 번호가 붙을 요소에 counter-increment로 증가량을 정합니다.*/
+}
+.favorite-list li {
+  counter-increment: number;
+  line-height: 1.5;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  /*position: relative;*/
+}
+.favorite-list li::before {
+  content: counter(number);
+  /*content: attr(class);*/
+  display: inline-block;
+  color: #fff;
+  background: #888;
+  border-radius: 2px;
+  padding: 2px 10px;
+  font-size: 1.2rem;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.favorite-list a {
+  flex-grow: 1;
+  margin-right: 5px;
+}
+.favorite-list em {
+  /*float: right;*/
+  /* display: inline-block;*/
+  height: 0;
+  padding-top: 11px;
+  background: url(images/rank.png) no-repeat;
+  overflow: hidden;
+  /*position: absolute;*/
+  top: 50%;
+  right: 0;
+}
+.favorite-list .stop {
+  background-position: 0 50%;
+}
+.favorite-list .down {
+  background-position: 0 100%;
+}
+.favorite-more {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  padding: 8px;
+}
+.favorite-more .icon-plus {
+  color: hsla(110, 50%, 30%, 1);
+}
+/*슬로건*/
+.slogan {
+  background: #fff;
+  padding: 10px 80px 10px 200px;
+  position: relative;
+}
+.slogan-heading {
+  margin: 0;
+  width: 110px;
+  height: 83px;
+  line-height: 83px;
+  position: absolute;
+  text-align: center;
+  font-size: 1.4rem;
+  left: 50px;
+  bottom: -25px;
+}
+.bg-slogan {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: url(images/coffee.png) no-repeat;
+  z-index: 10;
+}
+.slogan-content {
+  color: #a09784;
+  font-size: 1.5rem;
+}
+.slogan-content q::before {
+  font-size: 3.5rem;
+  position: relative;
+  top: 10px;
+}
+.slogan-content q::after {
+  content: "";
+}
+.slogan-content em {
+  font-style: normal;
+}
+/* 푸터 */
+.footer {
+  padding: 15px 0;
+  position: relative;
+}
+/* 보라색/파란색은 부모요소때문에 안보임 */
+.footer-bg {
+  background-color: #ccc;
+  background-image: linear-gradient(
+    180deg,
+    #ccc 0%,
+    #eee 30%,
+    #fff 60%,
+    #fff 100%
+  );
+  font-family: "Spoqa Han Sans", "Sans-serif";
+  width: 100vw;
+  /* display: flex;
+    flex-direction: row;
+    justify-content: center; */
+}
+.guide-list {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+.guide-list li {
+  padding: 5px;
+}
+.bedge {
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
